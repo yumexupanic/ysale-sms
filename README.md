@@ -14,7 +14,7 @@
 brew install tesseract --with-all-languages
 ```
 
-## gm install
+### gm install
 
 ```shell
 brew install imagemagick
