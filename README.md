@@ -6,7 +6,7 @@
 
 ## 如何使用？
 
-由于使用了 验证码识别，请在使用前 安装 需要先安装 [node-tesseract](https://github.com/desmondmorris/node-tesseract) 和 [gm](https://github.com/aheckmann/gm) 
+由于使用了 验证码识别，请在使用前需要先安装 [node-tesseract](https://github.com/desmondmorris/node-tesseract) 和 [gm](https://github.com/aheckmann/gm) 
 
 ### node-tesseract install
 

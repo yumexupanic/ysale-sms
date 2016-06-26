@@ -25,13 +25,6 @@ module.exports = function(param,callback){
 
     })
 
-    //var dataBuffer = getBase64Image(img);
-
-    /*
-    recognizer(url).then({
-        console.log("232131");
-    });
-    */
 }
 
 /**
@@ -69,23 +62,6 @@ function recognizer (imgPath, options) {
                 resolve(text.replace(/[\r\n\s]/gm, ''));
             });
     });
-}
-
-/**
-将 img 标签转化成base64
-**/
-
-function getBase64Image(img) {
-      var canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      var ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0, img.width, img.height);
-
-      var dataURL = canvas.toDataURL("image/png");
-
-      return dataURL.replace("/^data:image\/\w+;base64,/", ""); //过滤data:URL
 }
 
 function saveImg(dataBuffer,callback){
