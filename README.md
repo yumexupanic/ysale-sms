@@ -3,6 +3,16 @@
  ![demo](http://7xq9q2.com1.z0.glb.clouddn.com/2016-06-26-NodeJs%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%9F%AD%E4%BF%A1%E8%BD%B0%E7%82%B8%E5%99%A8%2Fdemo.gif)
 
 
+## 说明
+
+目前只能识别出 比较清晰的验证码 识别率和验证码清晰度有关 比如 这种 识别率在百分百
+
+![处理前](http://7xq9q2.com1.z0.glb.clouddn.com/2016-06-26-NodeJs%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%9F%AD%E4%BF%A1%E8%BD%B0%E7%82%B8%E5%99%A8%2F1.jpeg)
+
+为了提高识别效率 ，使用了 gm 处理图片 处理后的图片
+
+![处理后](http://7xq9q2.com1.z0.glb.clouddn.com/2016-06-26-NodeJs%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%9F%AD%E4%BF%A1%E8%BD%B0%E7%82%B8%E5%99%A8%2F2.png)
+
 
 ## 如何使用？
 
